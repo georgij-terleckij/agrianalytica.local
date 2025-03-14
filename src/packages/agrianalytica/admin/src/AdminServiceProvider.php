@@ -3,6 +3,8 @@
 namespace Agrianalytica\Admin;
 
 use Illuminate\Support\ServiceProvider;
+use Agrianalytica\Admin\Repositories\RoleRepository;
+use Agrianalytica\Admin\Services\RoleService;
 
 class AdminServiceProvider extends ServiceProvider
 {
@@ -21,5 +23,7 @@ class AdminServiceProvider extends ServiceProvider
     public function register()
     {
         // Здесь можно регистрировать сервисы
+        $this->app->bind(RoleRepository::class);
+        $this->app->bind(RoleService::class);
     }
 }
