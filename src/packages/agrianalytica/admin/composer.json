@@ -1,0 +1,22 @@
+{
+    "name": "agrianalytica/admin",
+    "description": "Admin package for Laravel",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Agrianalytica\\Admin\\": "src/"
+        }
+    },
+    "require": {
+        "php": ">=8.0",
+        "illuminate/support": "^10.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Agrianalytica\\Admin\\AdminServiceProvider"
+            ]
+        }
+    }
+}
