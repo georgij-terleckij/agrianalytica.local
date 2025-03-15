@@ -11,13 +11,13 @@ class Role extends Model
 
     protected $fillable = ['name'];
 
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+
     public function permissions()
     {
         return $this->belongsToMany(Permission::class, 'role_permissions');
-    }
-
-    public function admins()
-    {
-        return $this->belongsToMany(Admin::class, 'admin_roles');
     }
 }

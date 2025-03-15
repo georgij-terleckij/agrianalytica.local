@@ -36,7 +36,7 @@ class LandManagerRepository
         $uuid = Str::uuid()->toString();
 
         return DB::table('land_managers')->insertGetId([
-            'uuid' => $uuid,
+            'id' => $uuid,
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -48,7 +48,7 @@ class LandManagerRepository
 
     public function update(string $uuid, array $data)
     {
-        return DB::table('land_managers')->where('uuid', $uuid)->update([
+        return DB::table('land_managers')->where('id', $uuid)->update([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -59,21 +59,21 @@ class LandManagerRepository
 
     public function findByUuid(string $uuid)
     {
-        return DB::table('land_managers')->where('uuid', $uuid)->first();
+        return DB::table('land_managers')->where('id', $uuid)->first();
     }
 
     public function delete(string $uuid)
     {
-        return DB::table('land_managers')->where('uuid', $uuid)->delete();
+        return DB::table('land_managers')->where('id', $uuid)->delete();
     }
 
     public function bulkDelete(array $uuids)
     {
-        return DB::table('land_managers')->whereIn('uuid', $uuids)->delete();
+        return DB::table('land_managers')->whereIn('id', $uuids)->delete();
     }
 
     public function bulkUpdateStatus(array $uuids, string $status)
     {
-        return DB::table('land_managers')->whereIn('uuid', $uuids)->update(['status' => $status]);
+        return DB::table('land_managers')->whereIn('id', $uuids)->update(['status' => $status]);
     }
 }

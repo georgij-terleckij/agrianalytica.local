@@ -13,8 +13,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         $this->call([
-            \Agrianalytica\Admin\Database\Seeders\RoleSeeder::class,
-            \Agrianalytica\Admin\Database\Seeders\LandManagerSeeder::class,
+            \Agrianalytica\Admin\Database\Seeders\DatabaseSeeder::class,
         ]);
         // \App\Models\User::factory(10)->create();
 

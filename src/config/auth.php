@@ -34,11 +34,30 @@ return [
     | Supported: "session"
     |
     */
-
+    /*
     'guards' => [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+        ],
+    ],
+    */
+    /*
+    'guards' => [
+        'employee' => [
+            'driver' => 'jwt',
+            'provider' => 'employees',
+        ],
+    ],
+    */
+    'guards' => [
+        'employee' => [
+            'driver' => 'session',
+            'provider' => 'employees',
+        ],
+        'employee_api' => [ // Для JWT
+            'driver' => 'jwt',
+            'provider' => 'employees',
         ],
     ],
 
@@ -60,9 +79,15 @@ return [
     */
 
     'providers' => [
+        /*
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
+        ],
+        */
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => Agrianalytica\Admin\Models\Employee::class,
         ],
 
         // 'users' => [

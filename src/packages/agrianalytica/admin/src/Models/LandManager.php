@@ -16,11 +16,11 @@ class LandManager extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'uuid',
         'name',
         'email',
         'phone',
         'status',
+        'role_id',
     ];
 
     protected static function boot()
@@ -33,8 +33,8 @@ class LandManager extends Model
         });
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class, 'land_manager_roles', 'land_manager_uuid', 'role_id');
+        return $this->belongsTo(Role::class);
     }
 }

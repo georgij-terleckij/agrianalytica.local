@@ -8,11 +8,12 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('land_managers', function (Blueprint $table) {
-            $table->uuid('uuid')->primary();
-            $table->string('name');
+            $table->uuid('id')->primary();
+            $table->string('name')->index();
             $table->string('email')->unique();
             $table->string('phone')->nullable();
-            $table->enum('status', ['active', 'banned'])->default('active');
+            $table->enum('status', ['active', 'banned'])->default('active')->index();
+            $table->foreignId('role_id')->nullable()->constrained()->onDelete('set null')->index();
             $table->timestamps();
         });
     }

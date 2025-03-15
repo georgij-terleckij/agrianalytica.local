@@ -57,7 +57,7 @@
             <tbody>
             @forelse($clients as $client)
                 <tr>
-                    <td><input type="checkbox" class="select-client" value="{{ $client->uuid }}"></td>
+                    <td><input type="checkbox" class="select-client" value="{{ $client->id }}"></td>
                     <td><i class="fas fa-user"></i> {{ $client->name }}</td>
                     <td><i class="fas fa-envelope"></i> {{ $client->email }}</td>
                     <td><i class="fas fa-phone"></i> {{ $client->phone }}</td>
@@ -69,13 +69,13 @@
                         @endif
                     </td>
                     <td>
-                        <a href="{{ route('admin.land-managers.show', $client->uuid) }}" class="btn btn-info btn-sm">
+                        <a href="{{ route('admin.land-managers.show', $client->id) }}" class="btn btn-info btn-sm">
                             <i class="fas fa-eye"></i> Просмотр
                         </a>
-                        <a href="{{ route('admin.land-managers.edit', $client->uuid) }}" class="btn btn-warning btn-sm">
+                        <a href="{{ route('admin.land-managers.edit', $client->id) }}" class="btn btn-warning btn-sm">
                             <i class="fas fa-edit"></i> Редактировать
                         </a>
-                        <form action="{{ route('admin.land-managers.destroy', $client->uuid) }}" method="POST" style="display:inline;">
+                        <form action="{{ route('admin.land-managers.destroy', $client->id) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm"><i class="fas fa-trash"></i> Удалить</button>
@@ -115,7 +115,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRF-TOKEN': '{{ csrf_token() }}'
                     },
-                    body: JSON.stringify({ uuids: selected })
+                    body: JSON.stringify({ id: selected })
                 }).then(() => location.reload());
             }
 

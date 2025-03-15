@@ -40,21 +40,21 @@ class LandManagerController extends Controller
         return view('admin::land_managers.create');
     }
 
-    public function show(string $uuid)
+    public function show(string $id)
     {
-        $client = $this->service->getByUuid($uuid);
+        $client = $this->service->getByUuid($id);
         return view('admin::land_managers.show', compact('client'));
     }
 
-    public function edit(string $uuid)
+    public function edit(string $id)
     {
-        $client = $this->service->getByUuid($uuid);
+        $client = $this->service->getByUuid($id);
         return view('admin::land_managers.edit', compact('client'));
     }
 
-    public function update(Request $request, string $uuid)
+    public function update(Request $request, string $id)
     {
-        $this->service->update($request, $uuid);
+        $this->service->update($request, $id);
         return redirect()->route('admin.land-managers.index')->with('success', 'Данные клиента обновлены ✅');
     }
 
@@ -67,20 +67,19 @@ class LandManagerController extends Controller
 
     public function bulkDelete(Request $request)
     {
-        $this->service->bulkDelete($request->input('uuids', []));
+        $this->service->bulkDelete($request->input('id', []));
         return back()->with('success', 'Выбранные клиенты удалены ❌');
     }
 
     public function bulkBan(Request $request)
     {
-        $this->service->bulkUpdateStatus($request->input('uuids', []), 'banned');
+        $this->service->bulkUpdateStatus($request->input('id', []), 'banned');
         return back()->with('success', 'Выбранные клиенты заблокированы 🔒');
     }
 
     public function bulkUnban(Request $request)
     {
-        $this->service->bulkUpdateStatus($request->input('uuids', []), 'active');
-//        \Log::info('bulkUnban request:', ['uuids' => $request->input('uuids')]);
+        $this->service->bulkUpdateStatus($request->input('id', []), 'active');
         return back()->with('success', 'Выбранные клиенты разблокированы 🔓');
     }
 }

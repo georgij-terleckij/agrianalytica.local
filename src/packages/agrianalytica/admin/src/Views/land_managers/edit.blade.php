@@ -6,7 +6,7 @@
     <div class="container-fluid">
         <h1 class="mt-4">Редактировать клиента</h1>
 
-        <form action="{{ route('admin.land-managers.update', $client->uuid) }}" method="POST">
+        <form action="{{ route('admin.land-managers.update', $client->id) }}" method="POST">
             @csrf
             @method('PUT')
 

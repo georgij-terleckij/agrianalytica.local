@@ -35,22 +35,22 @@ class LandManagerService
         return $this->repo->create($data);
     }
 
-    public function getByUuid(string $uuid)
+    public function getByUuid(string $id)
     {
-        return $this->repo->findByUuid($uuid);
+        return $this->repo->findByUuid($id);
     }
 
 
-    public function update(Request $request, string $uuid)
+    public function update(Request $request, string $id)
     {
         $data = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:land_managers,email,' . $uuid . ',uuid',
+            'email' => 'required|email|unique:land_managers,email,' . $id . ',id',
             'phone' => 'nullable',
             'status' => 'required|in:active,banned',
         ]);
 
-        return $this->repo->update($uuid, $data);
+        return $this->repo->update($id, $data);
     }
 
     public function delete(int $id)
@@ -58,15 +58,15 @@ class LandManagerService
         return $this->repo->delete($id);
     }
 
-    public function bulkDelete(array $uuids)
+    public function bulkDelete(array $id)
     {
-        return $this->repo->bulkDelete($uuids);
+        return $this->repo->bulkDelete($id);
     }
 
-    public function bulkUpdateStatus(array $uuids, string $status)
+    public function bulkUpdateStatus(array $id, string $status)
     {
-        if (!empty($uuids)) {
-            return $this->repo->bulkUpdateStatus($uuids, $status);
+        if (!empty($id)) {
+            return $this->repo->bulkUpdateStatus($id, $status);
         }
         return false;
     }

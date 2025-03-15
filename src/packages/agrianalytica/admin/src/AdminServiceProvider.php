@@ -25,5 +25,6 @@ class AdminServiceProvider extends ServiceProvider
         // Здесь можно регистрировать сервисы
         $this->app->bind(RoleRepository::class);
         $this->app->bind(RoleService::class);
+        $this->loadRoutesFrom(__DIR__ . '/Routes/api.php');
     }
 }
