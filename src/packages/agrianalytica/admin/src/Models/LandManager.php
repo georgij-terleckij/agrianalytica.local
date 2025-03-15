@@ -4,11 +4,12 @@ namespace Agrianalytica\Admin\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 class LandManager extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'land_managers';
     protected $primaryKey = 'uuid';
@@ -22,6 +23,7 @@ class LandManager extends Model
         'status',
         'role_id',
     ];
+    protected $dates = ['deleted_at'];
 
     protected static function boot()
     {

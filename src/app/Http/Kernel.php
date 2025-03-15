@@ -23,6 +23,12 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
+    protected $routeMiddleware = [
+        'auth' => \Illuminate\Auth\Middleware\Authenticate::class,
+        'admin.auth' => \Agrianalytica\Admin\Http\Middleware\AdminAuthMiddleware::class,
+        'role' => \Agrianalytica\Admin\Http\Middleware\CheckRoleMiddleware::class,
+    ];
+
     /**
      * The application's route middleware groups.
      *

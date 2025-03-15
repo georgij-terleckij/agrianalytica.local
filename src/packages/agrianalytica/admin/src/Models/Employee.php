@@ -5,16 +5,18 @@ namespace Agrianalytica\Admin\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Support\Str;
 
 class Employee extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
-    protected $fillable = ['id', 'name', 'email', 'password', 'role_id'];
+    protected $fillable = [ 'name', 'email', 'password', 'role_id', 'status'];
     protected $hidden = ['password', 'remember_token'];
     protected $casts = ['id' => 'string', 'password' => 'hashed'];
+    protected $dates = ['deleted_at'];
 
     // Генерируем UUID при создании
     protected static function boot()
