@@ -169,6 +169,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Agrianalytica\Admin\AdminServiceProvider::class,
+        Agrianalytica\FrontEnd\FrontEndServiceProvider::class,
     ])->toArray(),
 
     /*

@@ -17,8 +17,19 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = $this->roleService->getAllRoles();
-        return view('admin::roles', compact('roles'));
+        $roles = $this->roleService->getAllRoles(true);
+        return view('admin::roles.index', compact('roles'));
+    }
+
+    public function edit($roleId)
+    {
+        $data = $this->roleService->getRoleWithPermissions($roleId);
+        return view('admin::roles.edit', $data);
+    }
+
+    public function create()
+    {
+        return view('admin::roles.create');
     }
 
     public function store(Request $request)
@@ -27,9 +38,10 @@ class RoleController extends Controller
         return redirect()->route('admin.roles.index')->with('success', 'Роль создана!');
     }
 
-    public function update(Request $request, int $role)
+    public function update(Request $request, $id)
     {
-        $this->roleService->updateRole($request, $role);
+        $this->roleService->updateRolePermissions($id, $request->permissions ?? []);
+
         return redirect()->route('admin.roles.index')->with('success', 'Роль обновлена!');
     }
 
@@ -37,16 +49,5 @@ class RoleController extends Controller
     {
         $this->roleService->deleteRole($role);
         return redirect()->route('admin.roles.index')->with('success', 'Роль удалена!');
-    }
-
-    public function assignPermission(Request $request, Role $role)
-    {
-        $request->validate([
-            'permissions' => 'array',
-        ]);
-
-        $role->permissions()->sync($request->permissions);
-
-        return redirect()->route('admin.roles.index')->with('success', 'Права обновлены!');
     }
 }

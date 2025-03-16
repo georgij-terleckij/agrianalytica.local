@@ -1,0 +1,50 @@
+.content-wrapper>.content {
+    padding: 0.5rem;
+}
+
+/* Фиксируем Flash-сообщения наверху */
+.flash-messages {
+    position: fixed;
+    top: 60px; /* Подстраиваем под шапку */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50%;
+    z-index: 1050;
+}
+
+/* Стили для алертов */
+.flash-messages .alert {
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+/* Улучшаем цветовые индикаторы */
+.alert-success {
+    background-color: #28a745 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.alert-danger {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+}
+
+.nav-sidebar .nav-item > .nav-link {
+    border-radius: 10px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.nav-sidebar .nav-item > .nav-link:hover {
+    background-color: #1d2531;
+}
+
+.nav-sidebar .nav-treeview .nav-item > .nav-link {
+    padding-left: 2rem;
+}
+
+.nav-icon {
+    font-size: 1.2rem;
+}

@@ -1,6 +1,7 @@
 <?php
 namespace Agrianalytica\Admin\Http\Controllers\API;
 
+use Agrianalytica\Admin\Models\LandManager;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -46,5 +47,9 @@ class AuthAPIController extends Controller
             'token_type' => 'bearer',
             'expires_in' => Auth::guard('employee_api')->factory()->getTTL() * 60
         ]);
+    }
+
+    public function clients() {
+        return response()->json(LandManager::all());
     }
 }

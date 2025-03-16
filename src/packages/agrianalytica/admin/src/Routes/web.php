@@ -21,17 +21,22 @@ Route::prefix('admin')->middleware('web')->group(function () {
                 Route::get('/', [EmployeeController::class, 'index'])->name('admin.employees.index');
                 Route::get('/create', [EmployeeController::class, 'create'])->name('admin.employees.create');
                 Route::post('/', [EmployeeController::class, 'store'])->name('admin.employees.store');
-                Route::get('/{employee}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
-                Route::put('/{employee}', [EmployeeController::class, 'update'])->name('admin.employees.update');
-                Route::delete('/{employee}', [EmployeeController::class, 'destroy'])->name('admin.employees.destroy');
-                Route::post('/{employee}/toggle-ban', [EmployeeController::class, 'toggleBan'])->name('admin.employees.toggle-ban');
+                Route::get('/{id}/edit', [EmployeeController::class, 'edit'])->name('admin.employees.edit');
+                Route::put('/{id}', [EmployeeController::class, 'update'])->name('admin.employees.update');
+                Route::delete('/{id}', [EmployeeController::class, 'destroy'])->name('admin.employees.destroy');
+
+                Route::get('/archive', [EmployeeController::class, 'archive'])->name('admin.employees.archive');
+                Route::post('/{uuid}/restore', [EmployeeController::class, 'restore'])->name('admin.employees.restore');
             });
 
             // Управление ролями
             Route::get('/roles', [RoleController::class, 'index'])->name('admin.roles.index');
             Route::post('/roles', [RoleController::class, 'store'])->name('admin.roles.store');
+            Route::get('/roles/create', [RoleController::class, 'create'])->name('admin.roles.create');
+            Route::get('/roles/{role}/edit', [RoleController::class, 'edit'])->name('admin.roles.edit');
             Route::put('/roles/{role}', [RoleController::class, 'update'])->name('admin.roles.update');
             Route::delete('/roles/{role}', [RoleController::class, 'destroy'])->name('admin.roles.destroy');
+
         });
 
         // Управление клиентами (LandManagers)

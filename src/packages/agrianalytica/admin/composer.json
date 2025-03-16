@@ -1,6 +1,6 @@
 {
     "name": "agrianalytica/admin",
-    "description": "Admin package for Laravel",
+    "description": "Admin package for Agrianalytica",
     "type": "library",
     "license": "MIT",
     "autoload": {

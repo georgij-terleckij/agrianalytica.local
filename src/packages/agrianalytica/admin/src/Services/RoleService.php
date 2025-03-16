@@ -7,16 +7,32 @@ use Illuminate\Http\Request;
 
 class RoleService
 {
-    protected $roleRepo;
+    protected $roleRepository;
+    protected $permissionService;
 
-    public function __construct(RoleRepository $roleRepo)
+    public function __construct(RoleRepository $roleRepository, PermissionService $permissionService)
     {
-        $this->roleRepo = $roleRepo;
+        $this->roleRepository = $roleRepository;
+        $this->permissionService = $permissionService;
     }
 
-    public function getAllRoles()
+    public function getAllRoles(bool $withPermissionsCount = false)
     {
-        return $this->roleRepo->getAll();
+        return $this->roleRepository->getAll($withPermissionsCount);
+    }
+
+    public function getRoleById($roleId)
+    {
+        return $this->roleRepository->findById($roleId);
+    }
+
+    public function getRoleWithPermissions($roleId)
+    {
+        $role = $this->getRoleById($roleId);
+        $permissions = $this->permissionService->getAllPermissions();
+        $rolePermissions = $this->permissionService->getPermissionsForRole($roleId);
+
+        return compact('role', 'permissions', 'rolePermissions');
     }
 
     public function createRole(Request $request)
@@ -25,7 +41,7 @@ class RoleService
             'name' => 'required|unique:roles,name',
         ]);
 
-        return $this->roleRepo->create($data);
+        return $this->roleRepository->create($data);
     }
 
     public function updateRole(Request $request, int $id)
@@ -34,11 +50,16 @@ class RoleService
             'name' => 'required|unique:roles,name,' . $id,
         ]);
 
-        return $this->roleRepo->update($id, $data);
+        return $this->roleRepository->update($id, $data);
     }
 
     public function deleteRole(int $id)
     {
-        return $this->roleRepo->delete($id);
+        return $this->roleRepository->delete($id);
+    }
+
+    public function updateRolePermissions(int $roleId, array $permissions)
+    {
+        return $this->roleRepository->updateRolePermissions($roleId, $permissions);
     }
 }

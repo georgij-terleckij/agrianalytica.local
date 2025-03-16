@@ -14,7 +14,7 @@
         .badge.bg-danger { background-color: #dc3545 !important; color: white; }
     </style>
     <!-- Подключаем кастомные стили -->
-    <link rel="stylesheet" href="{{ asset('adminlte/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset('adminlte/custom.css') }}">
 
     @stack('styles')
     @stack('top-scripts')
@@ -73,9 +73,9 @@
 <script src="{{ asset('adminlte/plugins/jquery/jquery.min.js') }}"></script>
 <script src="{{ asset('adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 <script src="{{ asset('adminlte/js/adminlte.min.js') }}"></script>
+<script src="{{ asset('adminlte/admin.js') }}"></script>
 
 @stack('scripts')
-
 <script>
     setTimeout(() => {
         document.querySelectorAll('.alert').forEach(alert => alert.remove());

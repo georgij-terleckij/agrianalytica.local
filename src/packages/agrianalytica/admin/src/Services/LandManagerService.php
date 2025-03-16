@@ -24,6 +24,11 @@ class LandManagerService
         return $this->repo->getFiltered($search, $status, $perPage);
     }
 
+    public function getTrashedLandManagers($perPage = 10)
+    {
+        return $this->repo->getTrashed($perPage);
+    }
+
     public function create(Request $request)
     {
         $data = $request->validate([
@@ -37,7 +42,7 @@ class LandManagerService
 
     public function getByUuid(string $id)
     {
-        return $this->repo->findByUuid($id);
+        return $this->repo->findById($id);
     }
 
 
@@ -56,6 +61,16 @@ class LandManagerService
     public function delete(int $id)
     {
         return $this->repo->delete($id);
+    }
+
+    public function restoreLandManager($id)
+    {
+        return $this->repo->restore($id);
+    }
+
+    public function forceDeleteLandManager($id)
+    {
+        return $this->repo->forceDelete($id);
     }
 
     public function bulkDelete(array $id)

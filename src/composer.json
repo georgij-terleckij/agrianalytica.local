@@ -26,7 +26,8 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
-            "Agrianalytica\\Admin\\": "packages/agrianalytica/admin/src/"
+            "Agrianalytica\\Admin\\": "packages/agrianalytica/admin/src/",
+            "Agrianalytica\\FrontEnd\\": "packages/agrianalytica/front-end/src/"
         }
     },
     "autoload-dev": {

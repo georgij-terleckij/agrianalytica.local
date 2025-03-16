@@ -7,14 +7,18 @@ use Illuminate\Support\Str;
 
 class LandManagerRepository
 {
-    public function getAll()
+    protected $table = 'land_managers';
+
+    public function getAll(int $perPage = 10)
     {
-        return DB::table('land_managers')->get();
+        return DB::table($this->table)
+            ->whereNull('deleted_at') // Фильтр, чтобы не показывать удалённые
+            ->paginate($perPage);
     }
 
     public function getFiltered(?string $search, ?string $status, int $perPage = 10)
     {
-        $query = DB::table('land_managers');
+        $query = DB::table($this->table)->whereNull('deleted_at');
 
         if ($search) {
             $query->where(function ($q) use ($search) {
@@ -30,25 +34,25 @@ class LandManagerRepository
         return $query->paginate($perPage);
     }
 
-
     public function create(array $data)
     {
         $uuid = Str::uuid()->toString();
 
-        return DB::table('land_managers')->insertGetId([
+        return DB::table($this->table)->insertGetId([
             'id' => $uuid,
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
+            'deleted_at' => null,
             'status' => $data['status'] ?? 'active',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
     }
 
-    public function update(string $uuid, array $data)
+    public function update(string $id, array $data)
     {
-        return DB::table('land_managers')->where('id', $uuid)->update([
+        return DB::table($this->table)->where('id', $id)->update([
             'name' => $data['name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
@@ -57,23 +61,42 @@ class LandManagerRepository
         ]);
     }
 
-    public function findByUuid(string $uuid)
+    public function findById(string $id)
     {
-        return DB::table('land_managers')->where('id', $uuid)->first();
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->whereNull('deleted_at') // Фильтр, чтобы не показывать удалённые
+            ->first();
     }
 
-    public function delete(string $uuid)
+    public function delete(string $id)
     {
-        return DB::table('land_managers')->where('id', $uuid)->delete();
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->update(['deleted_at' => now()]);
     }
 
-    public function bulkDelete(array $uuids)
+    public function forceDelete(string $id)
     {
-        return DB::table('land_managers')->whereIn('id', $uuids)->delete();
+        return DB::table($this->table)
+            ->where('id', $id)
+            ->delete();
     }
 
-    public function bulkUpdateStatus(array $uuids, string $status)
+    public function bulkDelete(array $id)
     {
-        return DB::table('land_managers')->whereIn('id', $uuids)->update(['status' => $status]);
+        return DB::table($this->table)->whereIn('id', $id)->delete();
+    }
+
+    public function bulkUpdateStatus(array $id, string $status)
+    {
+        return DB::table($this->table)->whereIn('id', $id)->update(['status' => $status]);
+    }
+
+    public function getTrashed(int $perPage = 10)
+    {
+        return DB::table($this->table)
+            ->whereNotNull('deleted_at') // Показываем только удалённые
+            ->paginate($perPage);
     }
 }

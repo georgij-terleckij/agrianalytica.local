@@ -13,8 +13,11 @@ return new class extends Migration {
             $table->string('email')->unique();
             $table->string('password');
             $table->foreignId('role_id')->index(); // Оптимизируем запросы по ролям
+//            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade')->index();
+            $table->enum('status', ['active', 'banned'])->default('active');
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

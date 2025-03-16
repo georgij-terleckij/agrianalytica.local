@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->enum('status', ['active', 'banned'])->default('active')->index();
             $table->foreignId('role_id')->nullable()->constrained()->onDelete('set null')->index();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

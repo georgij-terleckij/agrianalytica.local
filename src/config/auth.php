@@ -42,15 +42,12 @@ return [
         ],
     ],
     */
-    /*
+
     'guards' => [
-        'employee' => [
-            'driver' => 'jwt',
+        'web' => [
+            'driver' => 'session',
             'provider' => 'employees',
         ],
-    ],
-    */
-    'guards' => [
         'employee' => [
             'driver' => 'session',
             'provider' => 'employees',
@@ -79,17 +76,16 @@ return [
     */
 
     'providers' => [
+        'employees' => [
+            'driver' => 'eloquent',
+            'model' => Agrianalytica\Admin\Models\Employee::class,
+        ],
         /*
         'users' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
         ],
         */
-        'employees' => [
-            'driver' => 'eloquent',
-            'model' => Agrianalytica\Admin\Models\Employee::class,
-        ],
-
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
